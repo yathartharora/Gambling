@@ -10,7 +10,7 @@ contract CreateMatch {
     function createNewmatch(string teamA, string teamB) public {
         team1[msg.sender] = teamA;
         team2[msg.sender] = teamB;
-        Gambling newMatch = new Gambling(msg.sender);
+        address newMatch = new Gambling(msg.sender);
         deployedContracts.push(newMatch);
     }
     
