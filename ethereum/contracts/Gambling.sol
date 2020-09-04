@@ -2,23 +2,45 @@ pragma experimental ABIEncoderV2;
 pragma solidity ^0.4.25;
 
 
-contract CreateMatch {
+// contract CreateMatch {
     
-    address[] public deployedContracts;
-    mapping(address => string) public team1;
-    mapping(address => string) public team2;
-    function createNewmatch(string teamA, string teamB) public {
-        team1[msg.sender] = teamA;
-        team2[msg.sender] = teamB;
-        address newMatch = new Gambling(msg.sender);
-        deployedContracts.push(newMatch);
+//     address[] public deployedContracts;
+//     mapping(address => string) public team1;
+//     mapping(address => string) public team2;
+//     function createNewmatch(string teamA, string teamB) public {
+//         team1[msg.sender] = teamA;
+//         team2[msg.sender] = teamB;
+//         address newMatch = new Gambling(msg.sender);
+//         deployedContracts.push(newMatch);
+//     }
+    
+//     function getDeployedContracts() public returns(address[]){
+//         return deployedContracts;
+//     }
+// }
+
+contract CreateMatch {
+    struct Match{
+        string teamA;
+        string teamB;
+        address sender;
     }
     
-    function getDeployedContracts() public returns(address[]){
-        return deployedContracts;
+    Match[] public matches;
+    
+    function createNewmatch(string team1, string team2) public {
+        Match memory newmatch = Match({
+            teamA: team1,
+            teamB: team2,
+            sender: new Gambling(msg.sender)
+        });
+       matches.push(newmatch);
+    }
+    
+    function getDeployedContracts() public view returns(Match[]){
+        return matches;
     }
 }
-
 
 
 contract Gambling {
@@ -28,10 +50,9 @@ contract Gambling {
     uint public totalMoneyTeam1;
     uint public totalMoneyTeam2;
     uint temp;
-    mapping (address => uint) public match1;
-    mapping (address => uint) public match2;
     address[] public team1;
     address[] public team2;
+    bool public complete = false;
     
     constructor(address sender) public{
         manager = sender;
@@ -70,6 +91,16 @@ contract Gambling {
                 totalMoneyTeam2 -= temp;
             }
         }
+
+        complete = true;
+    }
+
+    function gamblersTeam1() public view returns(address[]) {
+        return team1;
+    }
+
+    function gamblersTeam2() public view returns(address[]) {
+        return team2;
     }
 }
 
