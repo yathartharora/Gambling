@@ -1,0 +1,13 @@
+0x7deA5aaA6fd36290EEc31a18Ea88939B7a3F9Adf
+
+
+0x2e2cbae8deac96a25c31737696046cf5bc7423dd
+
+
+
+Contract with summary() --->     0xAC0e6BE31BEB1C7f79B79219973D99Da85d79b95
+
+
+
+
+Final Contract ------> 0x1cb52BA6baE9De42daf390D0E137842174649AFC
